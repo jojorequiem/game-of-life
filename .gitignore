@@ -1,3 +1,5 @@
+game_of_life
+main
 *.o
 *.a
 *.so
