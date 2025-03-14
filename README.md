@@ -1,5 +1,6 @@
-
 # Game of Life
+
+![Game of Life](assets/screenshot/game_of_life_screenshot.png)
 
 ## Description:
 The **Game of Life** is a cellular automaton devised by the British mathematician **John Conway** in 1970. The game simulates the evolution of a grid of cells based on a set of simple rules that determine whether each cell survives or dies in the next generation. Although it is called a "game", it is a zero-player game, meaning its evolution is determined by its initial state, with no further input from humans.
