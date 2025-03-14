@@ -1,3 +1,4 @@
+
 # Game of Life
 
 ## Description:
@@ -8,13 +9,10 @@ Conway's Game of Life became popular due to its simplicity and ability to simula
 This project is an implementation of Conway's Game of Life written in **C** using **SDL2** for graphics rendering.
 
 ## Features:
-- **Fixed grid size**: The default grid size is 10x10.
 - **Random grid generation**: Generate a random initial state for the grid.
 - **Manual grid editing**: Click to toggle cell states manually.
 - **Simulation control**: Start or pause the simulation with the spacebar.
 - **Zoom functionality**: Use the mouse wheel to zoom in or out of the grid.
-- **History tracking**: Undo and restore previous grid states.
-- **Help menu**: View command-line arguments and usage instructions.
 
 ## Installation:
 ### Prerequisites:
@@ -34,4 +32,5 @@ make
 ./game_of_life
 ```
 
-Enjoy playing with this simple yet fascinating simulation of Conway's Game of Life
+## Command-line Arguments:
+- `--help` or `-h`: Display a guide for using the game and available commands.
