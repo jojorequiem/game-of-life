@@ -9,8 +9,6 @@ void printHelp() {
   printf("  [SPACE] - Toggle the simulation on/off\n");
   printf("  [ESC]  - Exit the game\n");
   printf("  [R]    - Reset the grid to the default state (manual grid)\n");
-  printf("  [ENTER] - Change grid dimensions (default 10x10)\n");
-  printf("  [Arrow keys] - Move the grid (when dragging is active)\n");
   printf("  [Mouse Left Click] - Toggle cell state in the grid\n");
   printf("  [Mouse Right Click] - Reset cell state in the grid\n");
   printf("  [Mouse Wheel] - Zoom in/out on the grid\n");

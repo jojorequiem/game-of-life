@@ -2,20 +2,20 @@
 
 ![Game of Life](assets/screenshot/game_of_life_screenshot.png)
 
-## Description:
+## Description
 The **Game of Life** is a cellular automaton devised by the British mathematician **John Conway** in 1970. The game simulates the evolution of a grid of cells based on a set of simple rules that determine whether each cell survives or dies in the next generation. Although it is called a "game", it is a zero-player game, meaning its evolution is determined by its initial state, with no further input from humans.
 
 Conway's Game of Life became popular due to its simplicity and ability to simulate complex patterns from very simple rules. It is often used as an example in computer science to demonstrate the concept of cellular automata.
 
 This project is an implementation of Conway's Game of Life written in **C** using **SDL2** for graphics rendering.
 
-## Features:
+## Features
 - **Random grid generation**: Generate a random initial state for the grid.
 - **Manual grid editing**: Click to toggle cell states manually.
 - **Simulation control**: Start or pause the simulation with the spacebar.
 - **Zoom functionality**: Use the mouse wheel to zoom in or out of the grid.
 
-## Installation:
+## Installation
 ### Prerequisites:
 This project requires the following dependencies:
 - **SDL2**: Simple DirectMedia Layer 2 (SDL2) and SDL2_tf libraries for graphics rendering and font handling.
@@ -33,5 +33,5 @@ make
 ./game_of_life
 ```
 
-## Command-line Arguments:
+## Command-line Arguments
 - `--help` or `-h`: Display a guide for using the game and available commands.
