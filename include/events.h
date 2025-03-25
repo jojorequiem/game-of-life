@@ -6,4 +6,5 @@
 #include "config.h"
 
 void handleEvents(SDL_Event *event);
+
 #endif

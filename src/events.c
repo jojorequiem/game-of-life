@@ -5,71 +5,98 @@
 #include "../include/config.h"
 #include "../include/game.h"
 
+void handleQuitEvent() { running = false; }
+
+void handleKeyDownEvent(SDL_Keycode key, SDL_Keymod mod) {
+  if (key == SDLK_ESCAPE) {
+    running = false;
+  } else if (key == SDLK_1) {
+    randomGrid = true;
+    fillRandomGrid(grid);
+  } else if (key == SDLK_2) {
+    randomGrid = false;
+    memset(manualGrid, 0, sizeof(manualGrid));
+  } else if (key == SDLK_SPACE) {
+    simulationRunning = !simulationRunning;
+  } else if (key == SDLK_r && (mod & KMOD_SHIFT)) {
+    memset(manualGrid, 0, sizeof(manualGrid));
+  }
+}
+
+void handleMouseButtonDownEvent(SDL_MouseButtonEvent buttonEvent) {
+  int x = (buttonEvent.x - offsetX) / (WIDTH / COLS);
+  int y = (buttonEvent.y - offsetY) / (HEIGHT / ROWS);
+
+  if (x >= 0 && x < COLS && y >= 0 && y < ROWS) {
+    if (buttonEvent.button == SDL_BUTTON_LEFT) {
+      if (randomGrid)
+        grid[y][x] = !grid[y][x];
+      else
+        manualGrid[y][x] = !manualGrid[y][x];
+    } else if (buttonEvent.button == SDL_BUTTON_RIGHT) {
+      if (randomGrid)
+        grid[y][x] = false;
+      else
+        manualGrid[y][x] = false;
+    }
+  }
+  dragging = true;
+}
+
+void handleMouseButtonUpEvent(SDL_MouseButtonEvent buttonEvent) {
+  if (buttonEvent.button == SDL_BUTTON_LEFT) {
+    dragging = false;
+  }
+}
+
+void handleMouseMotionEvent(SDL_MouseMotionEvent motionEvent) {
+  if (dragging) {
+    offsetX += motionEvent.xrel;
+    offsetY += motionEvent.yrel;
+  }
+}
+
+void handleMouseWheelEvent(SDL_MouseWheelEvent wheelEvent) {
+  if (wheelEvent.y > 0) {
+    WIDTH += zoomFactor;
+    HEIGHT += zoomFactor;
+  } else if (wheelEvent.y < 0) {
+    if (WIDTH > MIN_WIDTH && HEIGHT > MIN_HEIGHT) {
+      WIDTH -= zoomFactor;
+      HEIGHT -= zoomFactor;
+    }
+  }
+}
+
 void handleEvents(SDL_Event *event) {
   while (SDL_PollEvent(event)) {
-    if (event->type == SDL_QUIT)
-      running = 0;
+    switch (event->type) {
+      case SDL_QUIT:
+        handleQuitEvent();
+        break;
 
-    else if (event->type == SDL_KEYDOWN) {
-      if (event->key.keysym.sym == SDLK_ESCAPE)
-        running = 0;
-      else if (event->key.keysym.sym == SDLK_1) {
-        randomGrid = true;
-        fillRandomGrid(grid);
-      } else if (event->key.keysym.sym == SDLK_2) {
-        randomGrid = false;
-        memset(manualGrid, 0, sizeof(manualGrid));
-      } else if (event->key.keysym.sym == SDLK_SPACE)
-        simulationRunning = !simulationRunning;
-      else if (event->key.keysym.sym == SDLK_r && (event->key.keysym.mod & KMOD_SHIFT)) {
-        memset(manualGrid, 0, sizeof(manualGrid));
-      }
-    }
+      case SDL_KEYDOWN:
+        handleKeyDownEvent(event->key.keysym.sym, event->key.keysym.mod);
+        break;
 
-    else if (event->type == SDL_MOUSEBUTTONDOWN) {
-      if (event->button.button == SDL_BUTTON_LEFT) {
-        int x = (event->button.x - offsetX) / (WIDTH / COLS);
-        int y = (event->button.y - offsetY) / (HEIGHT / ROWS);
-        if (x >= 0 && x < COLS && y >= 0 && y < ROWS) {
-          if (randomGrid)
-            grid[y][x] = !grid[y][x];
-          else
-            manualGrid[y][x] = !manualGrid[y][x];
-        }
-        dragging = true;
-      } else if (event->button.button == SDL_BUTTON_RIGHT) {
-        int x = (event->button.x - offsetX) / (WIDTH / COLS);
-        int y = (event->button.y - offsetY) / (HEIGHT / ROWS);
-        if (x >= 0 && x < COLS && y >= 0 && y < ROWS) {
-          if (randomGrid)
-            grid[y][x] = false;
-          else
-            manualGrid[y][x] = false;
-        }
-      }
-    }
+      case SDL_MOUSEBUTTONDOWN:
+        handleMouseButtonDownEvent(event->button);
+        break;
 
-    else if (event->type == SDL_MOUSEBUTTONUP) {
-      if (event->button.button == SDL_BUTTON_LEFT) dragging = false;
-    }
+      case SDL_MOUSEBUTTONUP:
+        handleMouseButtonUpEvent(event->button);
+        break;
 
-    else if (event->type == SDL_MOUSEMOTION) {
-      if (dragging) {
-        offsetX += event->motion.xrel;
-        offsetY += event->motion.yrel;
-      }
-    }
+      case SDL_MOUSEMOTION:
+        handleMouseMotionEvent(event->motion);
+        break;
 
-    else if (event->type == SDL_MOUSEWHEEL) {
-      if (event->wheel.y > 0) {
-        WIDTH += 50;
-        HEIGHT += 50;
-      } else if (event->wheel.y < 0) {
-        if (WIDTH > 100 && HEIGHT > 100) {
-          WIDTH -= 50;
-          HEIGHT -= 50;
-        }
-      }
+      case SDL_MOUSEWHEEL:
+        handleMouseWheelEvent(event->wheel);
+        break;
+
+      default:
+        break;
     }
   }
 }

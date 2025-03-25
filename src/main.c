@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
       return 1;
     }
   }
-  printAsciiGameName();
+  printAscii();
   SDL_Init(SDL_INIT_VIDEO);
   SDL_Window* window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT,
                                         SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);

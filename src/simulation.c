@@ -9,6 +9,6 @@ void updateSimulation() {
     applyRules(randomGrid ? grid : manualGrid, nextGrid);
     memcpy(randomGrid ? grid : manualGrid, nextGrid, sizeof(grid));
     saveState(grid);
-    SDL_Delay(100);
+    SDL_Delay(delay);
   }
 }

@@ -9,6 +9,5 @@
 
 void drawGrid(SDL_Renderer *renderer, bool grid[ROWS][COLS]);
 void renderFrame(SDL_Renderer *renderer);
-void printAsciiGameName();
 
 #endif
